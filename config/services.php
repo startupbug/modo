@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'client_id' => '324094514729631',
+        'client_secret' => '98c106b280e72e633f845c41045bd1a7',
+        'redirect' => 'http://localhost/mondotraveller/auth/facebook/callback',
+    ],    
+
 ];

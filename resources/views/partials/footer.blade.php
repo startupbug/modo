@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-left">
 					<div class="logo-img">
-              <a href="http://site.startupbug.net:6999/mondo/"><img src="img/footer-logo.png"></a>
+              <a href="http://site.startupbug.net:6999/mondo/"><img src="{{ asset('public/img/footer-logo.png') }}"></a>
           </div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-left">
@@ -76,12 +76,14 @@
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script> 
-    <script src="js/moment.min.js"></script>
-        <script src="js/collapse.js"></script>
-    <script src="js/transition.js"></script>
-    <script src="js/bootstrap-datetimepicker.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+    <script src="{{ asset('public/js/bootstrap.min.js') }}"></script> 
+    <script src="{{ asset('public/js/moment.min.js') }}"></script>
+        <script src="{{ asset('public/js/collapse.js') }}"></script>
+    <script src="{{ asset('public/js/transition.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('public/js/custom.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script >
 	$(document).ready(function() {
     $('#myCarousel').carousel({

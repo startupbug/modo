@@ -1,5 +1,6 @@
 @extends('masterlayout')
 @section('content')
+
 			<div class="home-slider">
 				<div class="home-slider-inner">
 					<div class="slider float-left">						
@@ -8,17 +9,17 @@
 						      <div class="carousel-inner" role="listbox">
 						        <div class="carousel-item active">
 						          	<div class="caro-sli">
-						          		<img src="img/home-slider-img.png">
+						          		<img src="{{ asset('public/img/home-slider-img.png') }}">
+						          	</div>						       		
+						        </div>
+						        <div class="carousel-item">
+						          	<div class="caro-sli">
+						          		<img src="{{ asset('public/img/home-slider-img.png') }}">
 						          	</div>						          		
 						        </div>
 						        <div class="carousel-item">
 						          	<div class="caro-sli">
-						          		<img src="img/home-slider-img.png">
-						          	</div>						          		
-						        </div>
-						        <div class="carousel-item">
-						          	<div class="caro-sli">
-						          		<img src="img/home-slider-img.png">
+						          		<img src="{{ asset('public/img/home-slider-img.png') }}">
 						          	</div>						          		
 						        </div>
 						      </div>
@@ -53,13 +54,14 @@
 					<h1 class="mns-headings">Suggested Trips</h1>
 					<p class="mns-para">Spread your wings, all around the world!</p>
 					<div class="row">
+					@for()
 						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 float-left">
 							<div class="frontend-box">										
 								<div class="frontend-box-inner">
 									<a href="#" class="adventure-tag">Adventure</a>
 									<a href="#" class="sale-tag"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<div class="img">
-										<img src="img/trip-img.png">														
+										<img src="{{ asset('public/img/trip-img.png') }}">														
 									</div>
 										<a href="#" class="continent">Asia</a>
 									<div class="course-detail-front">
@@ -111,13 +113,14 @@
 								</div>						
 						</div>
 						</div>
+					 @endforeach	
 						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 float-left">
 							<div class="frontend-box">										
 								<div class="frontend-box-inner">
 									<a href="#" class="adventure-tag">Adventure</a>
 									<a href="#" class="sale-tag"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<div class="img">
-										<img src="img/trip-img.png">														
+										<img src="{{ asset('public/img/trip-img.png') }}">														
 									</div>
 										<a href="#" class="continent">Asia</a>
 									<div class="course-detail-front">
@@ -175,7 +178,7 @@
 									<a href="#" class="adventure-tag">Adventure</a>
 									<a href="#" class="sale-tag"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<div class="img">
-										<img src="img/trip-img.png">														
+										<img src="{{ asset('public/img/trip-img.png') }}">														
 									</div>
 										<a href="#" class="continent">Asia</a>
 									<div class="course-detail-front">
@@ -233,7 +236,7 @@
 									<a href="#" class="adventure-tag">Adventure</a>
 									<a href="#" class="sale-tag"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<div class="img">
-										<img src="img/trip-img.png">														
+										<img src="{{ asset('public/img/trip-img.png') }}">														
 									</div>
 										<a href="#" class="continent">Asia</a>
 									<div class="course-detail-front">
@@ -295,21 +298,21 @@
 					<div class="row">						
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 float-left">
 							<div class="traveler">
-								<img src="img/search.png">
+								<img src="{{ asset('public/img/search.png') }}">
 								<h3>Search</h3>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 float-left">
 							<div class="traveler">
-								<img src="img/justice.png">
+								<img src="{{ asset('public/img/justice.png') }}">
 								<h3>Compare</h3>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 float-left">
 							<div class="traveler">
-								<img src="img/world.png">
+								<img src="{{ asset('public/img/world.png') }}">
 								<h3>Book your Trip</h3>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
 							</div>
@@ -327,19 +330,19 @@
 						<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 float-left">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 float-left" style="padding-right: 3px;">
-									<div class="hover-box"><a href="#"><img src="img/london.png" class="max-h1">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/london.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">London</div>
 										 </div></a>
 									</div>
-									<div class="hover-box"><a href="#"><img src="img/spain.png" class="max-h1">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/spain.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Spain</div>
 										 </div>
 									</a></div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 float-left" style="padding-right: 3px; padding-left: 3px;">
-									<div class="hover-box"><a href="#"><img src="img/belguim.png" class="max-h2">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/belguim.png') }}" class="max-h2">
 										<div class="overlay">
 										    <div class="text">Belguim</div>
 										 </div>
@@ -348,7 +351,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 float-left" style="padding-right: 3px;" >
-									<div class="hover-box"><a href="#"><img src="img/france.png" class="max-h2">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/france.png') }}" class="max-h2">
 										<div class="overlay">
 										    <div class="text">France</div>
 										 </div>
@@ -356,12 +359,12 @@
 								</div>
 
 								<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 float-left" style="padding-right: 3px; padding-left: 3px;">
-									<div class="hover-box"><a href="#"><img src="img/africa-img.png" class="max-h1">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/africa-img.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Africa</div>
 										 </div>
 									</a></div>
-									<div class="hover-box"><a href="#"><img src="img/spain.png" class="max-h1">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/spain.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Spain</div>
 										 </div>
@@ -375,7 +378,7 @@
 						<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 float-left" style="padding-left: 3px;">
 							<div class="row">
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 float-left" style="padding-right: 3px;">
-									<div class="hover-box"><a href="#"><img src="img/argintena.png" class="max-h1">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/argintena.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Argintena</div>
 										 </div>
@@ -383,7 +386,7 @@
 								</div>
 
 								<div class="col-xs-16 col-sm-6 col-md-6 col-lg-6 float-left" style="padding-left: 3px;">
-									<div class="hover-box"><a href="#"><img src="img/pakistan.png" class="max-h1">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/pakistan.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Pakistan</div>
 										 </div>
@@ -392,7 +395,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-left">
-									<div class="hover-box"><a href="#"><img src="img/newyork.png" class="max-h2">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/newyork.png') }}" class="max-h2">
 										<div class="overlay">
 										    <div class="text">Newyork</div>
 										 </div>
@@ -401,7 +404,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-left">
-									<div class="hover-box"><a href="#"><img src="img/greece.png" class="max-h3">
+									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/greece.png') }}" class="max-h3">
 										<div class="overlay">
 										    <div class="text">Greece</div>
 										 </div>
