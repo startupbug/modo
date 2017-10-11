@@ -54,56 +54,60 @@
 					<h1 class="mns-headings">Suggested Trips</h1>
 					<p class="mns-para">Spread your wings, all around the world!</p>
 					<div class="row">
-					@for()
+
+					@foreach($trips_array as $trips_arrayz)
 						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 float-left">
 							<div class="frontend-box">										
 								<div class="frontend-box-inner">
-									<a href="#" class="adventure-tag">Adventure</a>
+									<a href="#" class="adventure-tag">{{$trips_arrayz[2]}}</a>
 									<a href="#" class="sale-tag"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									<div class="img">
-										<img src="{{ asset('public/img/trip-img.png') }}">														
+										<img src="{{$trips_arrayz[3]}}">														
 									</div>
-										<a href="#" class="continent">Asia</a>
+										<a href="#" class="continent">{{$trips_arrayz[4]}}</a>
 									<div class="course-detail-front">
-										<h5><a href="#">6 Days Summer package</a></h5>
+										<h5><a href="#">{{$trips_arrayz[0]}}</a></h5>
 										<ul class="revi">
+											<!--
 											<li><i class="fa fa-star" aria-hidden="true"></i></li>
 											<li><i class="fa fa-star" aria-hidden="true"></i></li>
 											<li><i class="fa fa-star" aria-hidden="true"></i></li>
 											<li><i class="fa fa-star" aria-hidden="true"></i></li>
 											<li><i class="fa fa-star-half-o" aria-hidden="true"></i></li>
-											<li>606 Reviews - Good</li>							
+											<li>606 Reviews - Good</li>	 -->						
 										</ul>
 										<div class="desc-trip">
-											<p class="des">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+											<p class="des"><?php echo substr($trips_arrayz[9], 22); ?></p>
 											<ul class="comaprison">
-												<li><strong>Destinations</strong><span>  15 orientation in iceland</span></li>
-												<li><strong>AGE RANGE  </strong><span>  16 to 99 year Olds</span></li>
-												<li><strong>Starts/ ends </strong><span>dolrem ipsum/ dolor sit</span></li>
-												<li><strong>Country   </strong><span>South Iceland</span></li>
-												<li><strong>REGION   </strong><span>The Ring Road</span></li>
-												<li><strong>Operation  </strong><span> Arctic Adventures</span></li>
-												<li><strong>Price per Day </strong><span>$202</span></li>
+												<li><strong>Departure</strong><span>{{$trips_arrayz[13]}}</span></li>
+												<li><strong>AGE RANGE  </strong><span>  {{$trips_arrayz[11]}} to {{$trips_arrayz[12]}} year Olds</span></li>
+												<li><strong>Starts/ ends </strong><span><?php echo date("F jS, Y", strtotime($trips_arrayz[7])); ?>/
+												<?php echo date("F jS, Y", strtotime($trips_arrayz[6])); ?>
+												</span></li>
+												<li><strong>Country   </strong><span>{{$trips_arrayz[8]}}</span></li>
+												<li><strong>City   </strong><span>{{$trips_arrayz[10]}}</span></li> 
+												<li><strong>Operation  </strong><span> {{$trips_arrayz[14]}}</span></li>
+												<!--<li><strong>Price per Day </strong><span>$202</span></li> -->
 											</ul>
 										</div>
 										<div class="price-days-saving">
 											<div class="dayz">
 												<span class="days">days</span>
-												<span class="date">6</span>					
+												<span class="date">{{$trips_arrayz[1]}}</span>					
 											</div>
 											<div class="saving" style="text-align: center;">
 										<a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a>
 											</div>
 											<div class="pri">
 												<span class="date">Price</span>
-												<span class="days">$ 1,212</span>
+												<span class="days">$ {{$trips_arrayz[5]}}</span>
 											</div>
 										</div>
 
 										
 										<ul class="aval">
 											<!-- <li><a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a></li> -->					
-											<li><a href="#">View Deal</a></li>
+											<li><a target="_blank" href="{{route('single_trip_view', ['id' => $trips_arrayz[15]])}}">View Deal</a></li>
 										</ul>
 
 										<p class="arrow">
@@ -114,7 +118,7 @@
 						</div>
 						</div>
 					 @endforeach	
-						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 float-left">
+						<!--<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 float-left">
 							<div class="frontend-box">										
 								<div class="frontend-box-inner">
 									<a href="#" class="adventure-tag">Adventure</a>
@@ -161,7 +165,7 @@
 
 										
 										<ul class="aval">
-											<!-- <li></li>	 -->				
+											<!-- <li></li>	 				
 											<li><a href="#">View Deal</a></li>
 										</ul>
 
@@ -219,7 +223,7 @@
 
 										
 										<ul class="aval">
-										<!-- 	<li></li> -->					
+										<!-- 	<li></li>					
 											<li><a href="#">View Deal</a></li>
 										</ul>
 
@@ -277,7 +281,7 @@
 
 										
 										<ul class="aval">
-											<!-- <li><a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a></li> -->					
+											<!-- <li><a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a></li>					
 											<li><a href="#">View Deal</a></li>
 										</ul>
 
@@ -285,9 +289,9 @@
 											<i class="fa fa-angle-down" aria-hidden="true"></i>
 										</p>												
 									</div>
-								</div>						
+								</div>		 -->				
 						</div>
-						</div>
+						</div> 
 					</div>
 			</div>
 			</div>

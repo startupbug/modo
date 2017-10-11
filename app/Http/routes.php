@@ -33,3 +33,6 @@ Route::post('/login', 'AuthController@login_post')->name('login_post');
 
 Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('facebook.login');
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
+
+/* Trip Controller */
+Route::get('/trip/{id}', 'TripController@index')->name('single_trip_view');

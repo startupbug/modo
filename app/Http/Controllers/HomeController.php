@@ -41,7 +41,11 @@ class HomeController extends Controller {
 		
 		//dd($tripResult[0]['tour_dossier']['href']);
 
-		
+		//API URLS 
+		//
+		//https://rest.gadventures.com/tour_dossiers/22998
+		//https://rest.gadventures.com/departures/'.$tour_id
+
 		$trips_array = array();
 		$temp_trip =  array();
 		
@@ -57,14 +61,40 @@ class HomeController extends Controller {
 			$image = $trip_inner['images'][3]['image_href'];
 			$geography = $trip_inner['geography']['region']['name'];
 
-			array_push($trips_array, [$name, $duration, $category, $image, $geography]);
+			$country = $trip_inner['geography']['start_country']['name']; 
+			$city = $trip_inner['geography']['start_city']['name'];
+
+			$departures_start_date = $trip_inner['departures_start_date'];
+			$departures_end_date = $trip_inner['departures_end_date'];
+			$description = substr($trip_inner['description'], 22).'';
+			$trip_type = $trip_inner['categories'][3]['name'];
+			//dd($trip_type);
+			//tour dossier url --------------
+			//dd($trip_inner);
+			
+			$tour_id = $trip_inner['tour']['id'];
+			//dd($tour_id);
+			$departure_href = 'https://rest.gadventures.com/departures/'.$tour_id;
+			$trip_dept_inner = $this->trip_inner_func($departure_href);
+				
+			//dept url ---------------
+			//dd($trip_dept_inner);
+
+			$us_amount = $trip_dept_inner['lowest_pp2a_prices'][0]['amount'];
+
+			$min_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['min_age'];
+			$max_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['max_age'];
+			$departure = $trip_dept_inner['name'];
+			//dd($max_age);
+
+			array_push($trips_array, [$name, $duration, $category, $image, $geography, $us_amount, $departures_start_date, $departures_end_date, $country, $description, $city,$min_age, $max_age, $departure, $trip_type, $tour_id]);
 		}				
 			
-		dd($trips_array);
+		//dd($trips_array);
 
     	//echo '</pre>';
-    	die();
-    	return view('home.index')->with($trips_array);
+    	//die();
+    	return view('home.index')->with('trips_array', $trips_array);
     }
 
     public function trip_inner_func($href){
@@ -82,9 +112,9 @@ class HomeController extends Controller {
     	$trips_inner = $res2->getBody()->getContents();
     	
 		$trips_inner = json_decode($trips_inner, true);
-		//dd("herezz");
+
 		return $trips_inner;
-		//dd($trips_inner);
+
     }
 
     public function get_detail($href){
