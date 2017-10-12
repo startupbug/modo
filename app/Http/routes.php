@@ -35,4 +35,12 @@ Route::get('auth/facebook', 'FacebookController@redirectToProvider')->name('face
 Route::get('auth/facebook/callback', 'FacebookController@handleProviderCallback');
 
 /* Trip Controller */
-Route::get('/trip/{id}', 'TripController@index')->name('single_trip_view');
+Route::get('/trip/{id}', 'TripController@index')->name('single_trip_view'); 
+Route::get('/trip-itinary/{id}', 'TripController@itinary_index')->name('full_itenary');
+
+//trip_search
+Route::post('/trip-search', 'TripController@trip_search')->name('trip_search');
+
+//Test check
+
+Route::get('/check', 'TripController@test_check')->name('test_check');

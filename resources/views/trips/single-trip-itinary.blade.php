@@ -41,31 +41,6 @@
       #latlng {
         width: 100px;
       }
-
-		#table-wrapper {
-		  position:relative;
-		}
-		#table-scroll {
-		  height:300px;
-		  overflow:auto;  
-		  margin-top:20px;
-		}
-		#table-wrapper table {
-		  width:100%;
-
-		}
-		#table-wrapper table * {
-		  /*background:yellow; */
-		  color:black;
-		}
-		#table-wrapper table thead th .text {
-		  position:absolute;   
-		  top:-20px;
-		  z-index:2;
-		  height:20px;
-		  width:35%;
-		  border:1px solid red;
-		}      
     </style> 
 
 <div class="deals-details">
@@ -113,17 +88,18 @@
 				<div class="details-des">
 					<div class="deals-t">
 					 @if(isset($trip_dossier['name']))
-						<h1>{{$trip_dossier['name']}}</h1>
+						<h1>{{$trip_dossier['name']}} - Itenary Details</h1>
 					 @endif
 					</div>
 					<!--<div class="deals-book">
 						<p><a href="#">book now</a></p>
 					</div> -->
 					<div class="deals-book">
-						<p><a href="{{$trip_dossier['site_links'][3]['href']}}">Download PDF</a></p>
+						<p><a href="{{$trip_dossier['site_links'][3]['href']
+}}">Download PDF</a></p>
 					</div>					
 					@if(isset($trip_dossier['description']))
-						<p>{{$trip_dossier['description']}}</p>
+						<!-- <p>{{$trip_dossier['description']}}</p> -->
 					@endif
 
 					<div class="all-feat">
@@ -146,7 +122,7 @@
 									<li><strong>Service Level:  </strong><span>  {{$trip_dossier['categories'][1]['name']}}</span></li>
 									<li><strong>physical: </strong><span>{{$trip_dossier['categories'][2]['name']}} </span></li>
 									<!--<li><strong>Places:  </strong><span>Premium - 4 start </span></li> -->
-									<li><strong>Cost: </strong><span class="dsys">From {{$trip_dos_dept_detail[0]['lowest_pp2a_prices'][0]['amount']}} </span></li>
+									<li><strong>Cost:  </strong><span class="dsys">From ${{$trip_dos_dept_detail[0]['lowest_pp2a_prices'][0]['amount']}} </span></li>
 									<!--<li><strong>Reviews:  </strong><span><ul class="revi">
 								<li><i class="fa fa-star" aria-hidden="true"></i></li>
 								<li><i class="fa fa-star" aria-hidden="true"></i></li>
@@ -155,23 +131,9 @@
 								<li><i class="fa fa-star-half-o" aria-hidden="true"></i></li>
 								</ul> </span></li> -->
 									<li>
-										
-					  <?php $exists = false; ?>
-					  @for($i=0; $i<count($trip_dos_dept_detail); $i++)
-					  	@if($trip_dos_dept_detail[0]['availability']['status'] == 'AVAILABLE')
-					  	    <?php $exists = true; ?>				  	
-					  	@endif
-					  @endfor
-
 										<div class="saving">
-										   @if($exists)
 											<a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a>
-										   @else
-											<a style="color:red" href="#">Unavailable</a>
-										   @endif
-
 										</div>
-
 									</li>
 								</ul>
 							</div>
@@ -180,8 +142,8 @@
 							<div class="col-sm-12 col-md-12">
 								<div class="book-info">
 									<ul>
-										<li><a href="#">Book now</a></li> 
-										<li><a href="{{route('full_itenary', ['id' => $trip_dossier['id']])}}">Full itenary</a></li>
+										<li><a href="#">Book now</a></li>
+										<li><a href="{{route('single_trip_view', ['id' => $trip_dossier['id']])}}">TRIP DETAIL</a></li>
 									</ul>
 								</div>
 							</div>
@@ -190,23 +152,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-
-<div class="deals-details2">
-	<div class="container">
-			
-			 	<ul>
-				@if(isset($trip_dossier['details']))	
-				   @for($i=0; $i<count($trip_dossier['details']);$i++)
-						<div class="section" id="{{$trip_dossier['details'][$i]['detail_type']['label']}}">
-						    <a href="#{{$trip_dossier['details'][$i]['detail_type']['label']}}"><li>{{$trip_dossier['details'][$i]['detail_type']['label']}}</li></a>
-						</div>				   			
-				   @endfor
-				@endif				 		
-			 	</ul>
-			
 	</div>
 </div>
 
@@ -228,38 +173,37 @@
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-7">
-				<!--<div class="routes_place-menu">
-					<ul>
+				<div class="routes_place-menu">
+					<!--<ul>
 						<li><a href="#">Reviews</a></li>
 						<li><a href="#">Guides</a></li>
 						<li><a href="#">Q&A’S</a></li>
 						
-					</ul> 
-				</div>-->
-			<div id="table-wrapper">
-				<div class="check-check-out" id="table-scroll">
-				 		<h1 class="center">Departures</h1>
+					</ul>-->
+						
+							@if(isset($trip_dossier['details']))
+							   @for($i=0; $i<count($trip_dossier['itineraries'][0]);$i++)
+									<div class="section" id="highlights">
+									        <h3>{{$trip_dossier['itineraries'][0]['days'][$i]['label']}}</h3>
+											<p>{{$trip_dossier['itineraries'][0]['days'][$i]['body']}}</p>					        
+									</div>				   			
+							   @endfor
+							@endif											
+						 				
+				</div>
+				<!--	<div class="check-check-out">
 					<table class="tg" style="width: 100%;">
 					  <tr>
-					    <th class="tg-4u1e">Dates</th>
-					    <th class="tg-4u1e">Availibility</th>
-					    <th class="tg-4u1e">Price</th>
+					    <th class="tg-4u1e">Places</th>
+					    <th class="tg-4u1e">Check in</th>
+					    <th class="tg-4u1e">Check Out</th>
 					  </tr>
-					  <?php $exists = false; ?>
-					@if($exists)
-					  @for($i=0; $i<count($trip_dos_dept_detail); $i++)
-					  	@if($trip_dos_dept_detail[0]['availability']['status'] == 'AVAILABLE')
-					  	    <?php $exists = true; ?>
-							  <tr>
-							    <td class="tg-qz94"><?php echo date("F jS, Y", strtotime($trip_dos_dept_detail[$i]['start_date'])); ?> - <?php echo date("F jS, Y", strtotime($trip_dos_dept_detail[$i]['finish_date'])); ?>	</td>
-							    <td class="tg-qz94">{{$trip_dos_dept_detail[$i]['availability']['status']}}</td>
-							    <td class="tg-qz94">{{$trip_dos_dept_detail[$i]['lowest_pp2a_prices'][0]['amount']}}</td>
-							  </tr>					  	
-					  	@endif
-					  @endfor
-					@endif
-
-					<!-- <tr>
+					  <tr>
+					    <td class="tg-qz94">Neque porro quis</td>
+					    <td class="tg-qz94">Neque porro quis</td>
+					    <td class="tg-qz94">Neque porro quis</td>
+					  </tr>
+					  <tr>
 					    <td class="tg-qz94">Quam est qui dolorem</td>
 					    <td class="tg-qz94">Quam est qui dolorem</td>
 					    <td class="tg-qz94">Quam est qui dolorem</td>
@@ -278,19 +222,12 @@
 					    <td class="tg-qb4h">Adipisci velit</td>
 					    <td class="tg-qb4h">Adipisci velit</td>
 					    <td class="tg-qb4h">Adipisci velit</td>
-					  </tr> -->
-					</table>
-					  @if(!$exists)
-					  <div>
-					  	<h1>No Departures Exist</h1>
-					  </div>
-					  @endif					
-				</div>
-			</div>	<!-- table wrapper div-->		
+					  </tr>
+					</table> 
+				</div>	-->
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <!-- deals-details2 -->
@@ -317,16 +254,16 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 col-md-7"> 
+			<!--<div class="col-sm-12 col-md-7"> 
 				@if(isset($trip_dossier['details']))	
 				   @for($i=0; $i<count($trip_dossier['details']);$i++)
-						<div class="section" id="{{$trip_dossier['details'][$i]['detail_type']['label']}}">
+						<div class="section" id="highlights">
 						        <h3>{{$trip_dossier['details'][$i]['detail_type']['label']}}</h3>
 								<p>{{$trip_dossier['details'][$i]['body']}}</p>					        
 						</div>				   			
 				   @endfor
 				@endif											
-			 </div>
+			 </div> -->
 
 
 			<!-- <div class="col-sm-12 col-md-7">

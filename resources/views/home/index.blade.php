@@ -37,10 +37,11 @@
 								<li class="tours">on selected tours</li>
 								<li class="thr">Now through july 31 !!!</li>
 							</ul>
-							<form>
+							<form id="searchTrip" method="post" action="{{route('trip_search')}}">
 								<label for="where-would-you-like-to-go?">Where would you like to go?</label>
-								<input type="text" placeholder="Country, City, Famous Place" id="where-would-you-like-to-go?">
-								<input type="submit" value="Search">
+								<input type="text" name="searchText" placeholder="Country, City, Famous Place" id="where-would-you-like-to-go?">
+								<input type="hidden" name="_token" value="{{Session::token()}}">
+								<input type="submit" name="submit" value="Search">
 							</form>
 						</div>		
 					</div>
@@ -107,7 +108,7 @@
 										
 										<ul class="aval">
 											<!-- <li><a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a></li> -->					
-											<li><a target="_blank" href="{{route('single_trip_view', ['id' => $trips_arrayz[15]])}}">View Deal</a></li>
+											<li><a target="_blank" href="{{route('single_trip_view', ['id' => $trips_arrayz[15]])}}">TRIP DETAIL</a></li>
 										</ul>
 
 										<p class="arrow">
