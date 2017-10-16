@@ -6,11 +6,17 @@
 		<div class="row">	
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="location-search deals-search" >
-					<form>
+					<!--<form>
 						<label for="where-would-you-like-to-go?">Where would you like to go?</label>
 						<input type="text" placeholder="Country, City, Famous Place" id="where-would-you-like-to-go?">
 						<input type="submit" value="Search">
-					</form>
+					</form> -->
+							<form id="searchTrip" method="post" action="{{route('trip_search')}}">
+								<label for="where-would-you-like-to-go?">Where would you like to go?</label>
+								<input type="text" name="searchText" placeholder="Country, City, Famous Place" id="where-would-you-like-to-go?">
+								<input type="hidden" name="_token" value="{{Session::token()}}">
+								<input type="submit" name="submit" value="Search">
+							</form>					
 				</div>
 			</div>
 		</div>	
@@ -40,14 +46,16 @@
 			<div class="col-sm-6 col-md-3">
 				<div class="trip-finder-sidebar">
 					<div class="main-box">
+					  <form id="searchTripForm" >
 						<div class="header header-ar">
-							<h3>Duration</h3>
+							<h3>Duration </h3> <a id="resetForm" href="#">Reset Filter</a>
 						</div>
 						<div class="bodys" >
 							<div class="range-bars">
 								<div class="range-slider">
 								<form>
-									<input class="range-slider__range" type="range" value="3" min="0" max="3">
+									<input class="range-slider__range" name="tour_dur" id="tour_dur" type="range" value="0" min="1" max="15">
+									
 									<span class="range-slider__value"></span><span>days</span>
 									<div class="ran-max">
 										<span>30+ days</span>
@@ -59,19 +67,22 @@
 					</div>
 					<div class="main-box">
 						<div class="header header-ar">
-							<h3>Start Date</h3>
+					 @if(isset($searchText))	
+						<input type="hidden" value="{{$searchText}}" name="search_term" id="search_term">
+					@endif			
+							<h3>Departure Date</h3>
 						</div>
 						<div class="bodys" >
 							<div class="sameus start-date">
 								<p>Start</p>
 								<form>
 								<div class="form-group">
-					                <div class='input-group date' id='datetimepicker1'>
-					                    <input type='text' class="form-control" />
-					                    <span class="input-group-addon">
+					                <!--<div class='input-group date' id='datetimepicker1'> -->
+					                    <input type='date' name="start_date" id="start_date" value="0" class="form-control" onchange="startDateChange(event);"/>
+					                    <!-- foo<span class="input-group-addon">
 					                        <span class="fa fa-calendar"></span>
-					                    </span>
-					                </div>
+					                    </span> -->
+					                <!--</div> -->
 					            </div>
 					            </form>
 							</div>
@@ -79,12 +90,12 @@
 								<p>End</p>
 								<form>
 								<div class="form-group">
-					                <div class='input-group date' id='datetimepicker5'>
-					                    <input type='text' class="form-control" />
-					                    <span class="input-group-addon">
+					                <!--<div class='input-group date' id='datetimepicker5'> -->
+ 										<input type='date' name="end_date" id="end_date" value="0" class="form-control" onchange="startEndChange(event);"/>	                   
+					                    <!--<span class="input-group-addon">
 					                        <span class="fa fa-calendar"></span>
-					                    </span>
-					                </div>
+					                    </span> -->
+					                <!--</div> -->
 					            </div>
 					            </form>
 							</div>
@@ -92,32 +103,44 @@
 					</div>
 					<div class="main-box">
 						<div class="header header-ar">
-							<h3>Budget</h3>
+							<h3>Price</h3>
 						</div>
 						<div class="bodys" >
 							<div class="range-bars">
 								<div class="range-slider">
-									<input class="range-slider__range" type="range" value="100" min="0" max="100">
-									<span class="range-slider__value">0</span><span>Min</span>
+									<input class="range-slider__range" name="tour_price" id="tour_price" type="range" value="0" min="200" max="10000">
+									$<span class="range-slider__value">200</span><span></span>
 									<div class="ran-max">
-										<span>Max</span>
+										<span>$10000</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>
 					<div class="main-box">
 						<div class="header">
-							<h3>On Sale</h3>
+					
+						  <div >
+
+						  </div>						
+							<h3 data-toggle="collapse" data-target="#demo">Physical</h3>
 						</div>
-						<div class="bodys" style="display: none;"></div>
+						<div class="bodys collapse" id="demo">
+							<input type="checkbox" name="physical" value="2 - Light"> 2 - Light </label>
+							<br>
+							<input type="checkbox" name="physical" value="3 - Average"> 3 - Average </label>	
+							<br>
+							<input type="checkbox" name="physical" value="4 - Demanding"> 4 - Demanding </label>
+						</div>
 					</div>
+				<!--
 					<div class="main-box">
 						<div class="header">
 							<h3>Destinations</h3>
 						</div>
 						<div class="bodys" style="display: none;"></div>
-					</div>
+				</div>
 					<div class="main-box">
 						<div class="header">
 							<h3>Travel Style</h3>
@@ -135,7 +158,7 @@
 							<h3>Physical Rating</h3>
 						</div>
 						<div class="bodys" style="display: none;"></div>
-					</div>
+					</div> -->
 
 				</div>
 			</div>
@@ -177,7 +200,67 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12 col-md-9" style="padding-left: 0;">
+					<div class="col-sm-12 col-md-9" style="padding-left: 0;" id="ajaxViewBoxes">
+				   @if(isset($trips_search_arrays))	
+					@for($i=0; $i<count($trips_search_arrays); $i++)
+							<div class="all-feat" id="all-feat2">
+									<div class="row" id="detail-tr">
+										<div class="col-sm-6 col-md-5">
+											<img src="{{$trips_search_arrays[$i][7]}}">
+										</div>
+										<div class="col-sm-6 col-md-7" style="padding-left: 0;">
+											<div class="trips-de">
+												<h2>{{$trips_search_arrays[$i][0]}}</h2>
+												<!--<span>by G Adventures</span> -->
+												<p><?php echo substr($trips_search_arrays[$i][1], 0,136).'...'; ?></p>
+												<p class="destin"><a target="_blank" href="{{route('single_trip_view', ['id' => $trips_search_arrays[$i][9]])}}">View Desitination</a></p>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-6 col-md-6">
+											<ul class="comaprison" id="comaprison-id">
+													<li><strong>Starts/Ends </strong><span>{{$trips_search_arrays[$i][2]}}/ {{$trips_search_arrays[$i][3]}}</span></li>
+												<li><strong>Country   </strong><span>{{$trips_search_arrays[$i][4]}}</span></li>
+												<li><strong>Start/ Finish City   </strong><span>{{$trips_search_arrays[$i][5]}}/{{$trips_search_arrays[$i][6]}}</span></li>
+												<li><strong>Duration: </strong><span>{{$trips_search_arrays[$i][8]}} days</span></li>
+												<!--<li><strong>REGION   </strong><span>The Ring Road</span></li>
+												<li><strong>Operation  </strong><span> Arctic Adventures</span></li>
+												<li><strong>Price per Day </strong><span class="rd">$ 202</span><p class="lnth">$ 102</p></li> -->
+											</ul>
+										</div>
+										<div class="col-sm-6 col-md-6">
+											<ul class="comaprison" id="comaprison-id">
+											 @if(isset($trips_search_arrays['categories']))
+												<li><strong>Type:</strong><span>{{$trips_search_arrays['categories'][3]['name']}}</span></li>
+												<li><strong>Service Level:  </strong><span>  {{$trips_search_arrays['categories'][1]['name']}}</span></li>
+												<li><strong>physical: </strong><span>{{$trips_search_arrays['categories'][2]['name']}} </span></li>
+											@endif
+												<!--<li><strong>Places:  </strong><span>Premium - 4 start </span></li>
+												<li><strong>Cost:  </strong><span class="dsys">$2424 / 12 Days </span></li>
+												<li><strong>Reviews:  </strong><span><ul class="revi">
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star-half-o" aria-hidden="true"></i></li>
+											</ul> </span></li>
+												<li>
+													<div class="saving">
+														<a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a>
+													</div>
+													<span class="com"><a href="#">Compare</a></span>
+												</li> -->
+											</ul>
+										</div>
+									</div>
+							</div>
+
+					@endfor
+				   @else
+				   	 	
+				   @endif	
+						<!--
 						<div class="all-feat" id="all-feat2">
 						<div class="row" id="detail-tr">
 							<div class="col-sm-6 col-md-5">
@@ -278,99 +361,48 @@
 								</ul>
 							</div>
 						</div>
-						</div>
-
-						<div class="all-feat" id="all-feat2">
-						<div class="row" id="detail-tr">
-							<div class="col-sm-6 col-md-5">
-								<img src="img/belguim-3.png">
-							</div>
-							<div class="col-sm-6 col-md-7" style="padding-left: 0;">
-								<div class="trips-de">
-									<h2>Neque porro quisquam </h2>
-									<span>by G Adventures</span>
-									<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
-									<p class="destin"><a href="#">View Desitination</a></p>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 col-md-6">
-								<ul class="comaprison" id="comaprison-id">
-									<li><strong>Destinations</strong><span>  15 orientation in iceland</span></li>
-									<li><strong>AGE RANGE  </strong><span>  16 to 99 year Olds</span></li>
-									<li><strong>Starts/ ends </strong><span>dolrem ipsum/ dolor sit</span></li>
-									<li><strong>Country   </strong><span>South Iceland</span></li>
-									<li><strong>REGION   </strong><span>The Ring Road</span></li>
-									<li><strong>Operation  </strong><span> Arctic Adventures</span></li>
-									<li><strong>Price per Day </strong><span class="rd">$ 202</span><p class="lnth">$ 102</p></li>
-								</ul>
-							</div>
-							<div class="col-sm-6 col-md-6">
-								<ul class="comaprison" id="comaprison-id">
-									<li><strong>Type:</strong><span>  Small Group</span></li>
-									<li><strong>Lodging:  </strong><span>  Premium - 4 star</span></li>
-									<li><strong>physical: </strong><span>Easy </span></li>
-									<li><strong>Places:  </strong><span>Premium - 4 start </span></li>
-									<li><strong>Cost:  </strong><span class="dsys">$2424 / 12 Days </span></li>
-									<li><strong>Reviews:  </strong><span><ul class="revi">
-								<li><i class="fa fa-star" aria-hidden="true"></i></li>
-								<li><i class="fa fa-star" aria-hidden="true"></i></li>
-								<li><i class="fa fa-star" aria-hidden="true"></i></li>
-								<li><i class="fa fa-star" aria-hidden="true"></i></li>
-								<li><i class="fa fa-star-half-o" aria-hidden="true"></i></li>
-								</ul> </span></li>
-									<li>
-										<div class="saving">
-											<a href="#"><i class="fa fa-circle" aria-hidden="true">  </i>Available</a>
-										</div>
-										<span class="com"><a href="#">Compare</a></span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						</div>
+						</div> -->
 					</div>
-					<div class="col-sm-6 col-md-3">
+					<!--<div class="col-sm-6 col-md-3">
 						<div class="most-popular" id="related-guides">
 						<h2>Related Guides</h2>	
 						<ul class="articles">
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>South America</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>Machu Pichu</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>Peru</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>Luxury Travel</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>Guided Group</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>Tour Guide</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>Belgium</p>
 							</li>
 							<li>
-								<img src="img/related-guide.png">
+								<img src="{{ asset('public/img/related-guide.png') }}">
 								<p>South America</p>
 							</li>
 						</ul>
 						<p><a href="#">View More</a></p>
 					</div>
-					</div>
+					</div>  -->
 				</div>
 			</div>
 		</div>
@@ -454,5 +486,4 @@
 				</div>
 			</div>
 			<!-- attraction -->	
-
 @endsection

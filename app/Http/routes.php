@@ -44,3 +44,8 @@ Route::post('/trip-search', 'TripController@trip_search')->name('trip_search');
 //Test check
 
 Route::get('/check', 'TripController@test_check')->name('test_check');
+
+//Search Ajax Routes
+Route::post('/trip-search-filter', 'TripController@trip_filter')->name('trip_filter');
+
+Route::get('/trip-search', 'TripController@trip_search_index')->name('trip_search_index');

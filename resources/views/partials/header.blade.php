@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}">    
-    <link rel="stylesheet" href="{{ asset('public/Fonts/proxima.css') }}">    
+    <link rel="stylesheet" href="{{ asset('public/Fonts/proxima.css') }}">
+    <meta name="_token" content="{{ Session::token() }}"/>  
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css">    
    </head>
@@ -20,20 +21,20 @@
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-3 col-lg-3 float-left">
           <div class="logo">
-       <a href="http://site.startupbug.net:6999/mondo/"><img src="{{ asset('public/img/logo.png') }}" alt="logo"></a></div>
+       <a href="{{route('home')}}"><img src="{{ asset('public/img/logo.png') }}" alt="logo"></a></div>
         </div>
         <div class="main_menu col-xs-12 col-sm-12 col-md-9 col-lg-9 float-left">
         <div class="mainmenu">
           <ul class="main-nav">
-            <li><a href="http://site.startupbug.net:6999/mondo/trip-finder.php">Trip finder </a></li>
+            <li><a href="{{route('trip_search_index')}}">Trip finder </a></li>
             <li><a href="http://site.startupbug.net:6999/mondo/deals.php">Deals</a></li>
             <li><a href="http://site.startupbug.net:6999/mondo/tour-comparator.php">Trip comparator</a></li>
             <li><a href="http://site.startupbug.net:6999/mondo/reviews.php">reviews </a></li>
             <li><a href="http://site.startupbug.net:6999/mondo/magazine.php">Magazine </a></li>            
             <li><a href="#"><!-- <img src="img/user-login.png">--> <i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
             @if(Auth::check())
-             {{ Auth::user()->full_name}}
-            @else
+                {{ Auth::user()->full_name}}
+              @else
             @endif
             </li>            
           </ul> 

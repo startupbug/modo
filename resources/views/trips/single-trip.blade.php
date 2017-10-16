@@ -132,8 +132,6 @@
 								<ul class="comaprison" id="comaprison-id">
 							
 									<li><strong>Starts/ ends </strong><span><?php echo date("F jS, Y", strtotime($trip_dossier['departures_start_date'])); ?>/ <?php echo date("F jS, Y", strtotime($trip_dossier['departures_end_date'])); ?></span></li>
-
-
 									<li><strong>Country   </strong><span>{{$trip_dossier['geography']['start_country']['name']}}</span></li>
 									<li><strong>Start/Finish City  </strong><span>{{$trip_dossier['geography']['start_city']['name']}}/{{$trip_dossier['geography']['finish_city']['name']}}</span></li>
 									<li><strong>Duration  </strong><span>{{$trip_dossier['itineraries'][0]['duration']}} days</span></li>
@@ -142,9 +140,11 @@
 							</div>
 							<div class="col-sm-6 col-md-6">
 								<ul class="comaprison" id="comaprison-id">
+								  @if(isset($trips_search_arrays['categories']))
 									<li><strong>Type:</strong><span>{{$trip_dossier['categories'][3]['name']}}</span></li>
 									<li><strong>Service Level:  </strong><span>  {{$trip_dossier['categories'][1]['name']}}</span></li>
 									<li><strong>physical: </strong><span>{{$trip_dossier['categories'][2]['name']}} </span></li>
+								  @endif
 									<!--<li><strong>Places:  </strong><span>Premium - 4 start </span></li> -->
 									<li><strong>Cost: </strong><span class="dsys">From {{$trip_dos_dept_detail[0]['lowest_pp2a_prices'][0]['amount']}} </span></li>
 									<!--<li><strong>Reviews:  </strong><span><ul class="revi">
