@@ -2807,3 +2807,15 @@ div.tour-comparators div.find-trip{
 	    margin: 45px auto;
 	
 }
+
+/* loader gif icon */
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(public/img/loader_home.gif) center no-repeat #b9b9b9;
+    opacity: 0.8;
+}

@@ -7,8 +7,8 @@
 										<div class="col-sm-6 col-md-7" style="padding-left: 0;">
 											<div class="trips-de">
 												<h2>{{$trips_search_arrays[$i][0]}}</h2>
-												<span>by G Adventures</span>
-												<p>{{ substr($trips_search_arrays[$i][1], 18)}}</p>
+												<!--<span>by G Adventures</span> -->
+												<p><?php echo substr($trips_search_arrays[$i][1], 0, 136); ?></p>
 												<p class="destin"><a target="_blank" href="{{route('single_trip_view', ['id' => $trips_search_arrays[$i][9]])}}">View Desitination</a></p>
 											</div>
 										</div>
@@ -54,10 +54,16 @@
 
 					@endfor
 
-					 @if($count > 5)
-					  <ul class="pagination">
-					    @for($i=0;$i<round($count/5); $i++)
-					    <li><a href="#">1</a></li>
-					    @endfor
-					  </ul>
-					 @endif
+			 @if($count > 5)
+			  <ul class="pagination">
+			     <?php
+			       if(isset($pagi_href)){ 
+			         $pagi_link = substr_replace($pagi_href, "", -1);
+			       }
+			     ?>			  
+			    @for($i=2;$i<round($count/5); $i++)			    	
+				    <button class="searchTripAjaxPagi" data-id="{{$pagi_link}}{{$i}}">{{$i}}</button>
+				    <!--<li ></li> -->
+			    @endfor
+			  </ul>
+			 @endif

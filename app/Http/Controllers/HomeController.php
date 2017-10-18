@@ -38,7 +38,7 @@ class HomeController extends Controller {
 		//$trips['count'];
 		
 		$tripResult = $trips['results'];
-		
+		//dd($tripResult);
 		//dd($tripResult[0]['tour_dossier']['href']);
 
 		//API URLS 

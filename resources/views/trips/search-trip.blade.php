@@ -48,7 +48,9 @@
 					<div class="main-box">
 					  <form id="searchTripForm" >
 						<div class="header header-ar">
-							<h3>Duration </h3> <a id="resetForm" href="#">Reset Filter</a>
+						<div class="se-pre-con"></div>
+							<h3>Duration </h3>
+							<a id="resetForm" href="#">Reset Filter</a>
 						</div>
 						<div class="bodys" >
 							<div class="range-bars">
@@ -120,10 +122,7 @@
 				</form>
 					<div class="main-box">
 						<div class="header">
-					
-						  <div >
-
-						  </div>						
+														
 							<h3 data-toggle="collapse" data-target="#demo">Physical</h3>
 						</div>
 						<div class="bodys collapse" id="demo">
@@ -133,6 +132,43 @@
 							<br>
 							<input type="checkbox" name="physical" value="4 - Demanding"> 4 - Demanding </label>
 						</div>
+
+						<div class="header">
+														
+							<h3 data-toggle="collapse" data-target="#demo2">Service Level</h3>
+						</div>
+						<div class="bodys collapse" id="demo2">
+							<input type="checkbox" name="service" value="Basic"> Basic </label>
+							<br>
+							<input type="checkbox" name="service" value="Standard"> Standard </label>	
+							<br>
+							<input type="checkbox" name="service" value="Upgraded"> Upgraded </label>
+						</div>
+
+						<div class="header">
+														
+							<h3 data-toggle="collapse" data-target="#demo3">Travel Style</h3>
+						</div>
+						<div class="bodys collapse" id="demo3">
+							<input type="checkbox" name="travel_style" value="18-to-Thirtysomethings">18-to-Thirtysomethings</label>
+							<br>
+							<input type="checkbox" name="travel_style" value="Active"> Active </label>	
+							<br>
+							<input type="checkbox" name="travel_style" value="Classic"> Classic </label>
+							<br>
+							<input type="checkbox" name="travel_style" value="Family"> Family </label>	
+							<br>
+							<input type="checkbox" name="travel_style" value="Local Living"> Local Living </label>
+							<br>
+							<input type="checkbox" name="travel_style" value="Marine"> Marine </label>	
+							<br>
+							<input type="checkbox" name="travel_style" value="National Geographic Journeys"> National Geographic Journeys </label>
+							<br>
+							<input type="checkbox" name="travel_style" value="Rail"> Rail </label>																				
+						</div>
+
+
+
 					</div>
 				<!--
 					<div class="main-box">
@@ -485,5 +521,15 @@
 					</div>
 				</div>
 			</div>
-			<!-- attraction -->	
+			<!-- attraction -->
+			@if(isset($count))
+			 @if($count > 5)
+			  <ul class="pagination">
+			    @for($i=2;$i<round($count/5); $i++)
+			    <li><a href="{{$pagi_href}}{{$i}}">$i</a></li>
+			    @endfor
+			  </ul>
+			 @endif
+			@endif 
+
 @endsection

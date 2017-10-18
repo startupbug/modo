@@ -48,4 +48,16 @@ Route::get('/check', 'TripController@test_check')->name('test_check');
 //Search Ajax Routes
 Route::post('/trip-search-filter', 'TripController@trip_filter')->name('trip_filter');
 
+Route::post('/trip-search-filter-pagi', 'TripController@trip_filter_pagi')->name('trip_filter');
+
 Route::get('/trip-search', 'TripController@trip_search_index')->name('trip_search_index');
+
+//https://rest.gadventures.com/tour_dossiers/?geography.primary_country.name=China
+Route::get('/country/trips/Belgium', 'TripController@trip_search_country')->name('country_trips');
+
+Route::get('/flush2', function () {
+
+$exitCode = Artisan::call('config:clear');
+  		Cache::flush();
+      dd('Cache cleared');
+});
