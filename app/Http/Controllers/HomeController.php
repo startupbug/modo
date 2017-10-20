@@ -9,6 +9,7 @@ use App\Http\Requests;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use Cache;
 
 class HomeController extends Controller {
 
@@ -22,17 +23,27 @@ class HomeController extends Controller {
 		$para = '/tours/'; 
 		$url = $base_uri.$para;
 		//?max_per_page=1
-		$res = $client->get('https://rest.gadventures.com/tours/?max_per_page=4', [
-	        'headers' => [
-	            'Accept' => 'application/json',
-	            'X-Application-Key' => 'test_290788a6c8dbb32ce4e399af4f63fda5d81642bc',
-	            'Content-Type' => 'application/json',
-	        ]
-    	]);
 
-    	$trips = $res->getBody()->getContents();
-    	
+		if (Cache::has('trip_cache')) {
+			$trips = Cache::get('trip_cache');
+			//dd($trips);
+		}else{
+			$res = $client->get('https://rest.gadventures.com/tours/?max_per_page=4', [
+		        'headers' => [
+		            'Accept' => 'application/json',
+		            'X-Application-Key' => 'test_290788a6c8dbb32ce4e399af4f63fda5d81642bc',
+		            'Content-Type' => 'application/json',
+		        ]
+	    	]);
+			$trips = $res->getBody()->getContents();
+			Cache::put('trip_cache', $trips, 60);
+
+		}			
+
+    	//$trips = $res->getBody()->getContents();
+    
 		$trips = json_decode($trips, true);
+
 
 		//Counts
 		//$trips['count'];
@@ -45,51 +56,56 @@ class HomeController extends Controller {
 		//
 		//https://rest.gadventures.com/tour_dossiers/22998
 		//https://rest.gadventures.com/departures/'.$tour_id
+		if (Cache::has('trip_cache_array')) {
+			$trips_array = Cache::get('trip_cache_array');
+		}else{
 
-		$trips_array = array();
-		$temp_trip =  array();
-		
-		for($i=0; $i<count($tripResult); $i++){
-
-			//Getting Trip/Tours details
-			$trip_inner = $this->trip_inner_func($tripResult[$i]['tour_dossier']['href']);
-			//dd("zzhere");
-			//dd($trip_inner);			
-			$name = $trip_inner['name'];
-			$duration = $trip_inner['itineraries'][0]['duration'];
-			$category = $trip_inner['categories'][0]['name'];
-			$image = $trip_inner['images'][3]['image_href'];
-			$geography = $trip_inner['geography']['region']['name'];
-
-			$country = $trip_inner['geography']['start_country']['name']; 
-			$city = $trip_inner['geography']['start_city']['name'];
-
-			$departures_start_date = $trip_inner['departures_start_date'];
-			$departures_end_date = $trip_inner['departures_end_date'];
-			$description = substr($trip_inner['description'], 22).'';
-			$trip_type = $trip_inner['categories'][3]['name'];
-			//dd($trip_type);
-			//tour dossier url --------------
-			//dd($trip_inner);
-			
-			$tour_id = $trip_inner['tour']['id'];
-			//dd($tour_id);
-			$departure_href = 'https://rest.gadventures.com/departures/'.$tour_id;
-			$trip_dept_inner = $this->trip_inner_func($departure_href);
+				$trips_array = array();
+				$temp_trip =  array();
 				
-			//dept url ---------------
-			//dd($trip_dept_inner);
+				for($i=0; $i<count($tripResult); $i++){
 
-			$us_amount = $trip_dept_inner['lowest_pp2a_prices'][0]['amount'];
+					//Getting Trip/Tours details
+					$trip_inner = $this->trip_inner_func($tripResult[$i]['tour_dossier']['href']);
+					//dd("zzhere");
+					//dd($trip_inner);			
+					$name = $trip_inner['name'];
+					$duration = $trip_inner['itineraries'][0]['duration'];
+					$category = $trip_inner['categories'][0]['name'];
+					$image = $trip_inner['images'][3]['image_href'];
+					$geography = $trip_inner['geography']['region']['name'];
 
-			$min_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['min_age'];
-			$max_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['max_age'];
-			$departure = $trip_dept_inner['name'];
-			//dd($max_age);
+					$country = $trip_inner['geography']['start_country']['name']; 
+					$city = $trip_inner['geography']['start_city']['name'];
 
-			array_push($trips_array, [$name, $duration, $category, $image, $geography, $us_amount, $departures_start_date, $departures_end_date, $country, $description, $city,$min_age, $max_age, $departure, $trip_type, $tour_id]);
-		}				
-			
+					$departures_start_date = $trip_inner['departures_start_date'];
+					$departures_end_date = $trip_inner['departures_end_date'];
+					$description = substr($trip_inner['description'], 22).'';
+					$trip_type = $trip_inner['categories'][3]['name'];
+					//dd($trip_type);
+					//tour dossier url --------------
+					//dd($trip_inner);
+					
+					$tour_id = $trip_inner['tour']['id'];
+					//dd($tour_id);
+					$departure_href = 'https://rest.gadventures.com/departures/'.$tour_id;
+					$trip_dept_inner = $this->trip_inner_func($departure_href);
+						
+					//dept url ---------------
+					//dd($trip_dept_inner);
+
+					$us_amount = $trip_dept_inner['lowest_pp2a_prices'][0]['amount'];
+
+					$min_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['min_age'];
+					$max_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['max_age'];
+					$departure = $trip_dept_inner['name'];
+					//dd($max_age);
+
+					array_push($trips_array, [$name, $duration, $category, $image, $geography, $us_amount, $departures_start_date, $departures_end_date, $country, $description, $city,$min_age, $max_age, $departure, $trip_type, $tour_id]);
+				}				
+					
+				Cache::put('trip_cache_array', $trips_array, 60);
+		}
 		//dd($trips_array);
 
     	//echo '</pre>';

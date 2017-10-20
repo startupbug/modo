@@ -13,7 +13,7 @@ class TripController extends Controller
     	$base_uri = 'https://rest.gadventures.com';
 
 		$client = new \GuzzleHttp\Client();
-
+		
 		//GET ALL Trips from API
 		$para = '/tours/'; 
 		$url = $base_uri.$para;
@@ -484,9 +484,22 @@ class TripController extends Controller
 
     public function trip_search_country(Request $request){
 
+    	$segment = $request->segment(2);
+    	$search_word = $request->segment(3);
+    	//dd($search_word);
+    	$country_url = "";
+    	if($segment == 'city'){ 
+    		$country_url = 'https://rest.gadventures.com/tour_dossiers?max_per_page=11&geography.start_city.name='.$search_word;
+    	}else if($segment == 'region'){
+    		$country_url = 'https://rest.gadventures.com/tour_dossiers?max_per_page=12&geography.region.name='.$search_word;;
+    	}else if($segment == 'country'){
+     $country_url = 'https://rest.gadventures.com/tour_dossiers?max_per_page=12&geography.primary_country.name='.$search_word;;
+    	}
+
+
 		$client = new \GuzzleHttp\Client();
 
-	$res = $client->get('https://rest.gadventures.com/tour_dossiers?geography.primary_country.name=Malaysia', [
+		$res = $client->get($country_url, [
 	        'headers' => [
 	            'Accept' => 'application/json',
 	            'X-Application-Key' => 'test_290788a6c8dbb32ce4e399af4f63fda5d81642bc',
@@ -503,7 +516,7 @@ class TripController extends Controller
 		
 		$tripResult = $trips['results'];
 		
-		//dd($tripResult[0]['tour_dossier']['href']);
+		//dd($tripResult);
 
 		//API URLS 
 		//
@@ -525,7 +538,7 @@ class TripController extends Controller
 			$image = $trip_inner['images'][3]['image_href'];
 			$geography = $trip_inner['geography']['region']['name'];
 
-			$country = $trip_inner['geography']['start_country']['name']; 
+			$country = $trip_inner['geography']['primary_country']['name']; 
 			$city = $trip_inner['geography']['start_city']['name'];
 
 			$departures_start_date = $trip_inner['departures_start_date'];
@@ -534,7 +547,11 @@ class TripController extends Controller
 
 			$category = "";
 			$trip_type = "";
-			
+			$us_amount = null;
+			$min_age = null;
+			$max_age = null;
+			$departure = null;
+
 			if(!empty($trip_inner['categories'])){
 				$category = $trip_inner['categories'][0]['name'];
 				$trip_type = $trip_inner['categories'][3]['name'];				
@@ -546,22 +563,32 @@ class TripController extends Controller
 			
 			$tour_id = $trip_inner['tour']['id'];
 			//dd($tour_id);
-			// $departure_href = 'https://rest.gadventures.com/departures/'.$tour_id;
-			// $trip_dept_inner = $this->trip_inner_func($departure_href);
-				
-			// //dept url ---------------
-			// //dd($trip_dept_inner);
-			// if(!empty($trip_dept_inner['lowest_pp2a_prices'])){
-			// 	$us_amount = $trip_dept_inner['lowest_pp2a_prices'][0]['amount'];
-			// 	$min_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['min_age'];
-			// 	$max_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['max_age'];
-			// 	$departure = $trip_dept_inner['name'];							
-			// }
+			$departure_href = 'https://rest.gadventures.com/departures/'.$tour_id;
+			//dd($departure_href);
+			
+			//	dd('check');
+
+					$trip_dept_inner = $this->trip_inner_func($departure_href);
+					
+					if(!isset($trip_dept_inner['http_status_code'])){
+						 //if( !($trip_dept_inner['http_status_code'] == 410) ){
+							 if(!empty($trip_dept_inner['lowest_pp2a_prices'])){
+								$us_amount = $trip_dept_inner['lowest_pp2a_prices'][0]['amount'];
+								$min_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['min_age'];
+								$max_age = $trip_dept_inner['rooms'][0]['price_bands'][0]['max_age'];
+								$departure = $trip_dept_inner['name'];							
+							 }					 	
+						 //}
+					
+					}	
+					// //dept url ---------------
+					//dd($trip_dept_inner);		
 
 			//dd($max_age);
-			array_push($trips_array, [$name, $duration, $category, $image, $geography, $departures_start_date, $departures_end_date, $country, $description, $trip_type, $tour_id]);
-		}							
-			dd($trips_array);
+			array_push($trips_array, [$name, $duration, $category, $image, $geography, $us_amount, $departures_start_date,
+			 $departures_end_date, $country, $description, $city,$min_age, $max_age, $departure, $trip_type, $tour_id]);			
+		}
+		//dd($trips_array);
     	return view('trips.country_index')->with('trips_array', $trips_array);
 	    
     }

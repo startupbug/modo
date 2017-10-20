@@ -335,28 +335,28 @@
 						<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 float-left">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 float-left" style="padding-right: 3px;">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/london.png') }}" class="max-h1">
+									<div class="hover-box"><a href="{{route('city_trips', ['city' => 'london'])}}"><img src="{{ asset('public/img/london.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">London</div>
 										 </div></a>
 									</div>
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/spain.png') }}" class="max-h1">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'Spain'])}}"><img src="{{ asset('public/img/spain.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Spain</div>
 										 </div>
 									</a></div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 float-left" style="padding-right: 3px; padding-left: 3px;">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/belguim.png') }}" class="max-h2">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'Belgium'])}}"><img src="{{ asset('public/img/belguim.png') }}" class="max-h2">
 										<div class="overlay">
-										    <div class="text">Belguim</div>
+										    <div class="text">Belgium</div>
 										 </div>
 									</a></div>
 								</div>								
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 float-left" style="padding-right: 3px;" >
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/france.png') }}" class="max-h2">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'France'])}}"><img src="{{ asset('public/img/france.png') }}" class="max-h2">
 										<div class="overlay">
 										    <div class="text">France</div>
 										 </div>
@@ -364,12 +364,12 @@
 								</div>
 
 								<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 float-left" style="padding-right: 3px; padding-left: 3px;">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/africa-img.png') }}" class="max-h1">
+									<div class="hover-box"><a href="{{route('region_trips', ['region' => 'Africa'])}}"><img src="{{ asset('public/img/africa-img.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Africa</div>
 										 </div>
 									</a></div>
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/spain.png') }}" class="max-h1">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'Spain'])}}"><img src="{{ asset('public/img/spain.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Spain</div>
 										 </div>
@@ -383,7 +383,7 @@
 						<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 float-left" style="padding-left: 3px;">
 							<div class="row">
 								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 float-left" style="padding-right: 3px;">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/argintena.png') }}" class="max-h1">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'Argentina'])}}"><img src="{{ asset('public/img/argintena.png') }}" class="max-h1">
 										<div class="overlay">
 										    <div class="text">Argintena</div>
 										 </div>
@@ -391,16 +391,16 @@
 								</div>
 
 								<div class="col-xs-16 col-sm-6 col-md-6 col-lg-6 float-left" style="padding-left: 3px;">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/pakistan.png') }}" class="max-h1">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'india'])}}"><img src="{{ asset('public/img/pakistan.png') }}" class="max-h1">
 										<div class="overlay">
-										    <div class="text">Pakistan</div>
+										    <div class="text">India</div>
 										 </div>
 									</a></div>
 								</div>								
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-left">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/newyork.png') }}" class="max-h2">
+									<div class="hover-box"><a href="{{route('city_trips', ['city' => 'new york'])}}"><img src="{{ asset('public/img/newyork.png') }}" class="max-h2">
 										<div class="overlay">
 										    <div class="text">Newyork</div>
 										 </div>
@@ -409,7 +409,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 float-left">
-									<div class="hover-box"><a href="#"><img src="{{ asset('public/img/greece.png') }}" class="max-h3">
+									<div class="hover-box"><a href="{{route('country_trips', ['country' => 'greece'])}}"><img src="{{ asset('public/img/greece.png') }}" class="max-h3">
 										<div class="overlay">
 										    <div class="text">Greece</div>
 										 </div>

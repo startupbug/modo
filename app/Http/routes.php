@@ -53,7 +53,11 @@ Route::post('/trip-search-filter-pagi', 'TripController@trip_filter_pagi')->name
 Route::get('/trip-search', 'TripController@trip_search_index')->name('trip_search_index');
 
 //https://rest.gadventures.com/tour_dossiers/?geography.primary_country.name=China
-Route::get('/country/trips/Belgium', 'TripController@trip_search_country')->name('country_trips');
+Route::get('/trips/country/{country}', 'TripController@trip_search_country')->name('country_trips');
+
+Route::get('/trips/region/{region}', 'TripController@trip_search_country')->name('region_trips');
+
+Route::get('/trips/city/{city}', 'TripController@trip_search_country')->name('city_trips');
 
 Route::get('/flush2', function () {
 
